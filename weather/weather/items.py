@@ -5,12 +5,10 @@
 # See documentation in:
 # http://doc.scrapy.org/en/latest/topics/items.html
 
-from scrapy.item import Item, Field
+import scrapy
 
 
-class WeatherItem(Item):
+class WeatherItem(scrapy.Item):
     # define the fields for your item here like:
-    degree = Field()
-    rate = Field()
-    describe = Field()
-    # pass
+    # name = scrapy.Field()
+    pass
