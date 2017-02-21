@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 # PN: Requests practice, Created Feb, 2017
 # Version 1.0
-# KW: http://cuiqingcai.com/2556.html crawler requests tutorial
+# KW: crawler requests tutorial
+# Link: http://cuiqingcai.com/2556.html
 # --------------------------------------------------- lib import
 import requests
 # --------------------------------------------------- part 1: status code
