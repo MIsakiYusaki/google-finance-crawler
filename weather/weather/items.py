@@ -10,5 +10,9 @@ import scrapy
 
 class WeatherItem(scrapy.Item):
     # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+	title = scrapy.Field()
+    time = scrapy.Field()
+    temp = scrapy.Field()
+    describe = scrapy.Field()
+    rain = scrapy.Field()
+    # pass
