@@ -1,6 +1,9 @@
-# encoding: utf-8
-
-# libraries import
+# -*- coding: utf-8 -*-
+# PN: apple news crawler, Created Jan, 2017
+# Version 1.0
+# KW: 
+# ---------------------------------------------------
+# --------------------------------------------------- libraries import
 import scrapy
 from bs4 import BeautifulSoup
 # import data structure from items.py
