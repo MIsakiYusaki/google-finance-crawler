@@ -11,10 +11,9 @@ import sqlite3
 conn = sqlite3.connect('index.sqlite')
 import csv
 import re
-
-# --------------------------------------------------- single company
+# --------------------------------------------------- part1: securities
 # def getStock(id):
-# 	stock = Share(str(id) + '.TW')
+# 	stock = Share(id)
 # 	# stock info
 # 	name = stock.get_name()
 # 	# info = stock.get_info()
@@ -32,22 +31,14 @@ import re
 # 	price_output = "Open price: {} Price high: {} Price low: {} Close price: {} Change: {} Percent: {}".format(openPrice, high, low, closePrice, change, changePercent)
 # 	return info_output + price_output
 
-# print(getStock(sys.argv[1]))
-
-# --------------------------------------------------- index
-# with open('datedata.csv', 'r') as f:
-# 	datereader = csv.reader(f, delimiter=' ', skipinitialspace=True)
-# 	for row in datereader:
-# 		date = row
-# 		print(date)
-# date test
-# print(datetime.date(2017, 2, 17)-datetime.timedelta(1))
+# stock = input("Key in stock symbol = ")
+# print(getStock(stock))
+# --------------------------------------------------- part2: index
 def getIndex(id):
 	index = Share(id)
-	date = datetime.date(2017, 2, 24)
+	date = datetime.date(2017, 2, 28)
 	for i in range(1, 10):
 		weekday = date.isoweekday()
-		# try weekday is not 5 and weekday is not 6:
 		try:
 			datas = str(index.get_historical('{}'.format(date), '{}'.format(date)))
 			lis = list()
@@ -81,8 +72,8 @@ def getIndex(id):
 			adjclosePrice_match = re.search(r'Adj_Close\'\: \'(\d\d\d\d\.\d+)\'', datas)
 			adjclosePrice = adjclosePrice_match.group(1)
 			lis.append(adjclosePrice)
-
-			sqlstr = "SELECT * FROM prices WHERE pdate={}".format(lis[0])
+			# print(lis)	# test whether lis exists
+			sqlstr = "SELECT * FROM prices WHERE pdate={} ORDER BY pdate DESC".format(lis[0])
 			# print(sqlstr)
 			cursor = conn.execute(sqlstr)
 			if len(cursor.fetchall()) == 0:
@@ -100,5 +91,11 @@ def getIndex(id):
 			date = date - datetime.timedelta(1)
 		except:
 			date = date - datetime.timedelta(1)
+index = input("請輸入查詢之指數代碼 (ex: ^TWII) = ")
+getIndex(index)
+# --------------------------------------------------- part3: FX
+# def getCur(id):
+# 	currency = Share(id)
+# 	print(currency.get_prev_close())
 	
-getIndex('^TWII')
+# getCur('GBPUSD=X')
