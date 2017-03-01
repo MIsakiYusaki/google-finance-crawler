@@ -1,11 +1,16 @@
 # --------------------------------------------- lib install, import
-install.packages("readxl")
 library("readxl")
 library("ggplot2")
 # --------------------------------------------- data import
 getwd()
-setwd("C:\\Users\\weijc\\Documents\\GitHub\\Crawler\\stockIndex")
+setwd("C:\\Users\\weijc\\Github\\Crawler\\stockIndex")
 price <- read_excel("prices.xlsx", sheet = "price_2003_delete")
+price_test <- read_excel("prices.xlsx", sheet = "price_2015")
+# --------------------------------------------- price_test (2015~201601)
+# total 242 trade days in 2015
+price_test2015firsthalf <- tail(price_test, 121)
+firsthalf2015mean <- mean(price_test2015uphalf$changePercent)
+firsthalf2015std <- sd(price_test2015uphalf$changePercent)
 # --------------------------------------------- all data (2013~2017)
 allPercMean <- mean(price$changePercent)
 allPercSd <- sd(price$changePercent)
