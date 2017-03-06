@@ -1,9 +1,11 @@
 # --------------------------------------------- lib install, import
+install.packages("readxl")
+install.packages("ggplot2")
 library("readxl")
 library("ggplot2")
 # --------------------------------------------- data import
 getwd()
-setwd("C:\\Users\\weijc\\Github\\Crawler\\stockIndex")
+setwd("/Users/jimmyweicc/Github/Crawler/stockIndex")
 price <- read_excel("prices.xlsx", sheet = "price_2003_delete")
 price_test <- read_excel("prices.xlsx", sheet = "price_2015")
 # --------------------------------------------- price_test (2015~201601)
