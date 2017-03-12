@@ -11,41 +11,54 @@ import sqlite3
 conn = sqlite3.connect('index.sqlite')
 import csv
 import re
+# --------------------------------------------------- disp_menu()
+def disp_menu():
+	print("Yahoo Price Crawler System")
+	print("--------------------")
+	print("1. Crawl Stock")
+	print("2. Crawl Index")
+	print("3. Crawl Currency")
+	print("4. Coming soon")
+	print("0. Finish crawler")
+	print("--------------------")
 # --------------------------------------------------- part1: securities
-# def getStock(id):
-# 	stock = Share(id)
-# 	# stock info
-# 	name = stock.get_name()
-# 	# info = stock.get_info()
-# 	time = stock.get_trade_datetime()
+def getStock(id):
+	print("not finish")
+	stock = Share(id)
+	# stock info
+	name = stock.get_name()
+	# info = stock.get_info()
+	time = stock.get_trade_datetime()
 
-# 	# price info
-# 	openPrice = stock.get_open()
-# 	closePrice = stock.get_price()
-# 	high = stock.get_days_high()
-# 	low = stock.get_days_low()
-# 	change = stock.get_change()
-# 	changePercent = stock.get_percent_change()
+	# price info
+	openPrice = stock.get_open()
+	closePrice = stock.get_price()
+	high = stock.get_days_high()
+	low = stock.get_days_low()
+	change = stock.get_change()
+	changePercent = stock.get_percent_change()
 
-# 	info_output = "Stock: {} \nTrade date: {}\n".format(name, time)
-# 	price_output = "Open price: {} Price high: {} Price low: {} Close price: {} Change: {} Percent: {}".format(openPrice, high, low, closePrice, change, changePercent)
-# 	return info_output + price_output
+	info_output = "Stock: {} \nTrade date: {}\n".format(name, time)
+	price_output = "Open price: {} Price high: {} Price low: {} Close price: {} Change: {} Percent: {}".format(openPrice, high, low, closePrice, change, changePercent)
+	return info_output + price_output
 
-# stock = input("Key in stock symbol = ")
-# print(getStock(stock))
 # --------------------------------------------------- part2: index
-def getIndex(id):
+def getIndex(id, year, month, day, term):
 	index = Share(id)
-	date = datetime.date(2017, 2, 28)
-	for i in range(1, 10):
+	name = id
+	date = datetime.date(year, month, day)
+	for i in range(1, term+1):
 		weekday = date.isoweekday()
 		try:
 			datas = str(index.get_historical('{}'.format(date), '{}'.format(date)))
 			lis = list()
+
 			# date
 			pdate_match = re.search(r'\d\d\d\d\-\d\d\-\d\d', datas)
 			pdate = pdate_match.group()
 			lis.append(pdate)
+			# index name
+			lis.append(name)
 			# weekday
 			lis.append(weekday)
 			# volumn
@@ -73,29 +86,52 @@ def getIndex(id):
 			adjclosePrice = adjclosePrice_match.group(1)
 			lis.append(adjclosePrice)
 			# print(lis)	# test whether lis exists
-			sqlstr = "SELECT * FROM prices WHERE pdate={} ORDER BY pdate DESC".format(lis[0])
+			# sqlstr = "SELECT * FROM price WHERE name={}".format(lis[0])
+			sqlstr = "SELECT * FROM price WHERE pdate={} ORDER BY pdate DESC".format(lis[0])
 			# print(sqlstr)
 			cursor = conn.execute(sqlstr)
 			if len(cursor.fetchall()) == 0:
-				weekday = 0 if lis[1] == '' else int(lis[1])
-				volumn = 0 if lis[2] == '' else int(lis[2])
-				open = 0 if lis[3] == '' else float(lis[3])
-				high = 0 if lis[4] == '' else float(lis[4])
-				low = 0 if lis[5] == '' else float(lis[5])
-				close = 0 if lis[6] == '' else float(lis[6])
-				adjclose = 0 if lis[7] == '' else float(lis[7])
-				sqlstr = "INSERT OR IGNORE INTO prices values('{}', {}, {}, {}, {}, {}, {}, {})".format(lis[0], weekday, volumn, open, high, low, close, adjclose)
+				name = 0 if lis[1] == '' else str(lis[1])
+				weekday = 0 if lis[2] == '' else int(lis[2])
+				volumn = 0 if lis[3] == '' else int(lis[3])
+				open = 0 if lis[4] == '' else float(lis[4])
+				high = 0 if lis[5] == '' else float(lis[5])
+				low = 0 if lis[6] == '' else float(lis[6])
+				close = 0 if lis[7] == '' else float(lis[7])
+				adjclose = 0 if lis[8] == '' else float(lis[8])
+				sqlstr = "INSERT OR IGNORE INTO price values('{}', '{}', {}, {}, {}, {}, {}, {}, {})".format(lis[0], name, weekday, volumn, open, high, low, close, adjclose)
 				conn.execute(sqlstr)
 				conn.commit()
 				print(sqlstr)
 			date = date - datetime.timedelta(1)
 		except:
 			date = date - datetime.timedelta(1)
-index = input("請輸入查詢之指數代碼 (ex: ^TWII) = ")
-getIndex(index)
 # --------------------------------------------------- part3: FX
-# def getCur(id):
-# 	currency = Share(id)
-# 	print(currency.get_prev_close())
-	
-# getCur('GBPUSD=X')
+def getCur(id):
+	print("not finish")
+	currency = Share(id)
+	print(currency.get_prev_close())
+# --------------------------------------------------- choose function
+while True:
+	disp_menu()
+	choice = int(raw_input("Choose crawler: "))
+	if choice == 0:
+		break
+	elif choice == 1:
+		stock = str(raw_input("Key in stock symbol (ex: 2330.TW): "))
+		getStock(stock)
+	elif choice == 2:
+		index = str(raw_input("請輸入抓取之指數代碼 (ex: ^TWII): "))
+		y = int(raw_input("請輸入抓取之年份: "))
+		m = int(raw_input("請輸入抓取之月份: "))
+		d = int(raw_input("請輸入抓取之日期: "))
+		t = int(raw_input("請輸入抓取之區間: "))
+		getIndex(index, y, m, d, t)
+	elif choice == 3:
+		cur = str(raw_input("請輸入查詢之指數代碼 (ex: GBPUSD=X): "))
+		getCur(cur)
+	elif choice == 4:
+		print("coming soon")
+	else:
+		break
+	x = raw_input("Press Enter")

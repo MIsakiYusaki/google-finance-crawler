@@ -16,8 +16,6 @@ firsthalf2015std <- sd(price_test2015uphalf$changePercent)
 # --------------------------------------------- all data (2013~2017)
 allPercMean <- mean(price$changePercent)
 allPercSd <- sd(price$changePercent)
-max(price$changePercent)
-?geom_histogram
 ggplot(data = price, aes(price$changePercent * 100))+
   geom_histogram(bins = 100,
                  col = "black",
