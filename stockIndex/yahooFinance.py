@@ -213,39 +213,39 @@ def getCur(id):
 # --------------------------------------------------- choose function
 while True:
 	disp_menu()
-	choice = int(input("Choose crawler: "))
+	choice = int(raw_input("Choose crawler: "))
 	if choice == 0:
 		break
 	elif choice == 1:
 		stock_menu()
-		choice = int(input("Choose function: "))
+		choice = int(raw_input("Choose function: "))
 		if choice == 0:
 			disp_menu()
 		elif choice == 1:
-			stock = str(input("Key in stock symbol (ex: 2330.TW): "))
+			stock = str(raw_input("Key in stock symbol (ex: 2330.TW): "))
 			getStock_daily(stock)
 		elif choice == 2:
-			stock = str(input("Key in stock symbol (ex: 2330.TW): "))
-			y = int(input("請輸入抓取之年份: "))
-			m = int(input("請輸入抓取之月份: "))
-			d = int(input("請輸入抓取之日期: "))
-			t = int(input("請輸入抓取之區間: "))
+			stock = str(raw_input("Key in stock symbol (ex: 2330.TW): "))
+			y = int(raw_input("請輸入抓取之年份: "))
+			m = int(raw_input("請輸入抓取之月份: "))
+			d = int(raw_input("請輸入抓取之日期: "))
+			t = int(raw_input("請輸入抓取之區間: "))
 			getStock_his(stock, y, m, d, t)
 		elif choice == 3:
-			stock = str(input("Key in stock symbol (ex: 2330.TW): "))
+			stock = str(raw_input("Key in stock symbol (ex: 2330.TW): "))
 			getStock_finance(stock)
 	elif choice == 2:
-		index = str(input("請輸入抓取之指數代碼 (ex: ^TWII): "))
-		y = int(input("請輸入抓取之年份: "))
-		m = int(input("請輸入抓取之月份: "))
-		d = int(input("請輸入抓取之日期: "))
-		t = int(input("請輸入抓取之區間: "))
+		index = str(raw_input("請輸入抓取之指數代碼 (ex: ^TWII): "))
+		y = int(raw_input("請輸入抓取之年份: "))
+		m = int(raw_input("請輸入抓取之月份: "))
+		d = int(raw_input("請輸入抓取之日期: "))
+		t = int(raw_input("請輸入抓取之區間: "))
 		getIndex(index, y, m, d, t)
 	elif choice == 3:
-		cur = str(input("請輸入查詢之指數代碼 (ex: GBPUSD=X): "))
+		cur = str(raw_input("請輸入查詢之指數代碼 (ex: GBPUSD=X): "))
 		getCur(cur)
 	elif choice == 4:
 		print("coming soon")
 	else:
 		break
-	x = input("Press Enter")
+	x = raw_input("Press Enter")
