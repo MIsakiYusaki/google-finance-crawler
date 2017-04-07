@@ -45,7 +45,6 @@ def get_posts_list(url):
                     'link': meta.get('href'),
         			'push': push_count,
         			'date': article.find('div', 'date').getText(),
-                    'time': article.find
         			'author': article.find('div', 'author').getText(),
         			})
             except AttributeError:
