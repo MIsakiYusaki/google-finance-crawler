@@ -45,6 +45,7 @@ def get_posts_list(url):
                     'link': meta.get('href'),
         			'push': push_count,
         			'date': article.find('div', 'date').getText(),
+                    'time': article.find
         			'author': article.find('div', 'author').getText(),
         			})
             except AttributeError:
@@ -75,12 +76,12 @@ def fetch_article_content(link):
 # --------------------------------------------------- Function calling
 if __name__ == '__main__':
     INDEX = 'https://www.ptt.cc/bbs/movie/index.html'
-    pages = 1
+    pages = 3
 
     start = time.time()
 
     metadata = get_paged_meta(pages)
-    articles = get_articles(metadata)
+    # articles = get_articles(metadata)
 
 
     for post in metadata:
@@ -89,4 +90,4 @@ if __name__ == '__main__':
         print('連結: https://www.ptt.cc{0}'.format(post['link']))
     print('----------------------------------------------------------------')  
     print('花費: %f 秒' % (time.time() - start))  
-    print('共{}項結果'.format(len(articles)))
+    print('共{}項結果'.format(len(metadata)))
