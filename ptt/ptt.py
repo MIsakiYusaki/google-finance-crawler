@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # PN: Crawler - ptt_movie, Created Mar. 2017
-# Version 1.2 (push_count, output prettify)
+# Version 1.3 (add progress bar)
 # KW: 
 # Link: 
 # https://github.com/leVirve/CrawlerTutorial
@@ -71,22 +71,67 @@ def get_articles(metadata):
 def fetch_article_content(link):
     url = urllib.parse.urljoin(INDEX, link)
     res = requests.get(url)
+    soup = BeautifulSoup(res.text, 'lxml')
+    # print(soup)
+    # score = 0
+    # for comment in soup.find_all('div', 'push'):
+    #     push_tag = comment.find('span', 'push-tag')
+    #     push_user = comment.find('span', 'push-userid')
+    #     push_content = comment.find('span', 'push-content')
+    #     if '推' in push_tag:
+    #         score += 1
+    #     elif '噓' in push_tag:
+    #         score -= 1
+    #     else:
+    #         score = score
+    #     print(push_tag)
+        
+    #     print(score)
     return res.text
-# --------------------------------------------------- Function calling
-if __name__ == '__main__':
-    INDEX = 'https://www.ptt.cc/bbs/movie/index.html'
-    pages = 3
-
+# --------------------------------------------------- Outcome def
+def outcome(index, pages):
     start = time.time()
-
     metadata = get_paged_meta(pages)
-    # articles = get_articles(metadata)
-
+    articles = get_articles(metadata)
 
     for post in metadata:
         print('----------------------------------------------------------------')
-        print('獲得{3: >2}個讚 日期:{0} 作者:{1: <15} {2}'.format(post['date'], post['author'], post['title'], post['push']))
+        print('日期:{0} 作者:{1: <15} 獲得{3: >2}個讚 {2}'.format(post['date'], post['author'], post['title'], post['push']))
         print('連結: https://www.ptt.cc{0}'.format(post['link']))
     print('----------------------------------------------------------------')  
     print('花費: %f 秒' % (time.time() - start))  
     print('共{}項結果'.format(len(metadata)))
+# --------------------------------------------------- Main panel
+def disp_menu():
+    print("--------------------")
+    print("PTT Crawler (選擇看板)")
+    print("--------------------")
+    print("1. Movie")
+    print("2. Hearthstone")
+    print("3. NBA")
+    print("0. End")
+    print("--------------------")
+# --------------------------------------------------- Function calling
+while True:
+    disp_menu()
+    choice = int(input("請輸入您的選擇: "))
+    print("-----------------------------------------")
+    if choice == 0:
+        break
+    elif choice == 1:
+        INDEX = 'https://www.ptt.cc/bbs/movie/index.html'
+        pages = int(input("請輸入欲爬取的頁數: "))
+        outcome(INDEX, pages)
+    elif choice == 2:
+        INDEX = 'https://www.ptt.cc/bbs/Hearthstone/index.html'
+        pages = int(input("請輸入欲爬取的頁數: "))
+        outcome(INDEX, pages)
+    elif choice == 3:
+        INDEX = 'https://www.ptt.cc/bbs/NBA/index.html'
+        pages = int(input("請輸入欲爬取的頁數: "))
+        outcome(INDEX, pages)
+    else:
+        break
+    x = input("Press Enter")
+
+
