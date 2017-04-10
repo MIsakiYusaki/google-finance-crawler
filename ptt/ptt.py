@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # PN: Crawler - ptt_movie, Created Mar. 2017
-# Version 1.3 (add progress bar)
+# Version 1.4.1 (add in-article crawl, not finished)
 # KW: 
 # Link: 
 # https://github.com/leVirve/CrawlerTutorial
@@ -85,7 +85,7 @@ def fetch_article_content(link):
     #     else:
     #         score = score
     #     print(push_tag)
-        
+
     #     print(score)
     return res.text
 # --------------------------------------------------- Outcome def
