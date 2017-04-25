@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # PN: apple news crawler, Created Apr. 2017
-# Version 1.1 (fix pipeline, separate memory works fine)
+# Version 1.2 (items fix, can pour into sqlite)
 # Link: 
 # https://www.youtube.com/watch?v=fnwvYAtCFko&t=197s
 # http://www.bertcarremans.be/using-pipelines-in-scrapy/
