@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # PN: ptt crawler, Created Apr. 2017
-# Version 1.0 (project start)
+# Version 1.1 (dealing with content select)
 # Link: 
 # http://city.shaform.com/blog/2016/02/28/scrapy.html
 # http://blog.bryanbigdata.com/2015/07/python-crawler.html
@@ -27,7 +27,7 @@ class PTTSpider(CrawlSpider):
 	def parse_list_detail(self, response):
 		soup = BeautifulSoup(response.body, 'lxml')
 		text = soup.select('div[id="main-content"] div[class="article-metaline"]')
-		print(text)
+		print(text.find(''))
 		# pttitem = PttItem()
 		# pttitem['title'] = soup.find('meta', property="og:title")['content']
 		# pttitem['author'] = text.find('div')
