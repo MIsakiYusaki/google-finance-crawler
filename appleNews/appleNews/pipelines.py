@@ -20,7 +20,7 @@ class ApplenewsPipeline(object):
 		self.conn.commit()
 		self.conn.close()
 
-	def process_item(self, item, spider):
+	def process_item(self, item, spider):	
 		self.storeInDb(item)
 		return item
 

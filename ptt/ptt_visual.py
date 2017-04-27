@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # PN: Crawler - ptt_movie, Created Mar. 2017
-# Version 1.4.1 (add in-article crawl, not finished)
+# Version 1.5 (project finish, will turn into scrapy framework for further research)
 # KW: 
 # Link: 
 # https://github.com/leVirve/CrawlerTutorial
@@ -17,18 +17,19 @@ from utlis import pretty_print
 # --------------------------------------------------- 1. Initial process
 def get_posts_list(url):
     time.sleep(0.5)  # 每次爬取前暫停 0.5 秒以免被 PTT 網站判定為大量惡意爬取
-
     res = requests.get(
         url = url,
         cookies = {'over18': '1'}   # 部分看板會驗證是否已成年，傳送成年訊息給 cookies
         )
+
     if res.status_code != 200:
         print('Invalid url:', res.url)
         return None
     else:
         soup = BeautifulSoup(res.text, 'lxml')
-
+        
     posts = list()
+
     for article in soup.find_all('div', 'r-ent'):
         # 取得推文數
         push_count = 0
@@ -72,21 +73,6 @@ def fetch_article_content(link):
     url = urllib.parse.urljoin(INDEX, link)
     res = requests.get(url)
     soup = BeautifulSoup(res.text, 'lxml')
-    # print(soup)
-    # score = 0
-    # for comment in soup.find_all('div', 'push'):
-    #     push_tag = comment.find('span', 'push-tag')
-    #     push_user = comment.find('span', 'push-userid')
-    #     push_content = comment.find('span', 'push-content')
-    #     if '推' in push_tag:
-    #         score += 1
-    #     elif '噓' in push_tag:
-    #         score -= 1
-    #     else:
-    #         score = score
-    #     print(push_tag)
-
-    #     print(score)
     return res.text
 # --------------------------------------------------- Outcome def
 def outcome(index, pages):
@@ -106,9 +92,11 @@ def disp_menu():
     print("--------------------")
     print("PTT Crawler (選擇看板)")
     print("--------------------")
-    print("1. Movie")
+    print("1. NBA")
     print("2. Hearthstone")
-    print("3. NBA")
+    print("3. Movie")
+    print("4. Gossip")
+    print("5. Stock")
     print("0. End")
     print("--------------------")
 # --------------------------------------------------- Function calling
@@ -119,7 +107,7 @@ while True:
     if choice == 0:
         break
     elif choice == 1:
-        INDEX = 'https://www.ptt.cc/bbs/movie/index.html'
+        INDEX = 'https://www.ptt.cc/bbs/NBA/index.html'
         pages = int(input("請輸入欲爬取的頁數: "))
         outcome(INDEX, pages)
     elif choice == 2:
@@ -127,7 +115,15 @@ while True:
         pages = int(input("請輸入欲爬取的頁數: "))
         outcome(INDEX, pages)
     elif choice == 3:
-        INDEX = 'https://www.ptt.cc/bbs/NBA/index.html'
+        INDEX = 'https://www.ptt.cc/bbs/movie/index.html'
+        pages = int(input("請輸入欲爬取的頁數: "))
+        outcome(INDEX, pages)
+    elif choice == 4:
+        INDEX = 'https://www.ptt.cc/bbs/Gossiping/index.html'
+        pages = int(input("請輸入欲爬取的頁數: "))
+        outcome(INDEX, pages)
+    elif choice == 5:
+        INDEX = 'https://www.ptt.cc/bbs/Stock/index.html'
         pages = int(input("請輸入欲爬取的頁數: "))
         outcome(INDEX, pages)
     else:

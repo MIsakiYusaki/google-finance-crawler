@@ -13,6 +13,6 @@ class PttItem(scrapy.Item):
 	author = scrapy.Field()
 	date = scrapy.Field()
 	content = scrapy.Field()
-	comments = scrapy.Field()
-	score = scrapy.Field()
+	# comments = scrapy.Field()
+	# score = scrapy.Field()
 	url = scrapy.Field()
