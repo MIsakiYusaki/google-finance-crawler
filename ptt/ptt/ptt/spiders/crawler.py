@@ -30,11 +30,12 @@ class PTTSpider(CrawlSpider):
 		self._pages += 1
 		domain = 'https://www.ptt.cc'
 		soup = BeautifulSoup(response.body, 'lxml')
-		# print(soup.select('.r-ent'))
 		for item in soup.select('.r-ent'):
-			yield scrapy.Request(domain + item.select('a')[0]['href'], self.parse_post)
+			print(item.select('a')[0]['href'])
+			# yield scrapy.Request(domain + item.select('a')[0]['href'], self.parse_post)
 		if self._pages < self._MAX_PAGES:
 			next_url = soup.select('div[id="action-bar-container"] > div[class="action-bar"] > div:nth-of-type(2) > a:nth-of-type(2)')[0]['href']
+			print(next_url)
 			if next_url:
 				domain = 'https://www.ptt.cc'
 				next_url = domain + next_url
@@ -82,3 +83,5 @@ class PTTSpider(CrawlSpider):
 		pttitem['score'] = total_score
 
 		# return pttitem
+
+針對台灣愛滋病寶寶相關議題，深度訪談愛滋病兒童照顧中心以及相關專家學者，並透過新聞傳達社會弱勢群體需要的包容與理解
