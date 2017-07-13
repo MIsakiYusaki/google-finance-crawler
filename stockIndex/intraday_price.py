@@ -4,16 +4,13 @@
 # Ver 1.1 (program finish, transfer google finance data into SQLite DB)
 # Link: 
 # --------------------------------------------------- lib import
-import csv
 import datetime
 import re
+import requests
 from urllib.request import urlopen, Request, URLError
 from urllib.parse import urlencode
 import sqlite3
 conn = sqlite3.connect('priceDB.sqlite')
-
-import pandas as pd
-import requests
 # --------------------------------------------------- Main panel
 def disp_menu():
 	print("--------------------")
