@@ -34,14 +34,14 @@ def get_price(comp, start, end):
     outptr = res.read().decode('utf-8').splitlines()
     outptr.reverse()
     rows = []
-
     for each in range(0, len(outptr)-1):
+        # print(outptr[each])
         ts, open_, high, low, close, volume = outptr[each].rstrip().split(',')
         open_, high, low, close = [float(x) for x in [open_, high, low, close]]
         dt = datetime.datetime.strptime(ts, '%d-%b-%y')
         rows.append([comp, dt, open_, high, low, close, volume])
     conn = sqlite3.connect('firm.sqlite')
-    conn.executemany("INSERT OR IGNORE INTO {} (ticker, dt, close, high, low, open, volume) VALUES (?,?,?,?,?,?,?)".format(comp), rows)
+    conn.executemany("INSERT OR IGNORE INTO {} (ticker, dt, open, high, low, close, volume) VALUES (?,?,?,?,?,?,?)".format(comp), rows)
     conn.commit()
 
 if __name__ == '__main__':
@@ -66,7 +66,7 @@ if __name__ == '__main__':
         elif choice == 2:
             try:
                 start_day = str(input("Key-in start day(ex: 20111227): "))
-                end_day = str(input("Key-in start day(ex: 30111227): "))
+                end_day = str(input("Key-in end day(ex: 30111227): "))
                 ticker = str(input("Key-in ticker(ex: AAPL): "))
                 q = get_price(ticker, start_day, end_day)
                 print('-- Finish crawl --')
