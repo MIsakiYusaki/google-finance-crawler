@@ -22,15 +22,16 @@ def disp_menu():
 	print("0. End")
 	print("--------------------")
 # --------------------------------------------------- program
-'''
-[Variables]
-database: connected table name
-exchange: trading place of ticker, NASDAQ, NYSE, TPE...etc
-ticker: symbols of the target stock
-period: in seconds
-days: maximum with 15 days
-'''
 def get_google_finance_intraday(database, exchange, ticker, period=60, days=15):
+	'''
+	[Variables]
+	database: connected table name
+	exchange: trading place of ticker, NASDAQ, NYSE, TPE...etc
+	ticker: symbols of the target stock
+	period: in seconds
+	days: maximum with 15 days
+	DJI: INDEXDJX
+	'''
 	url = 'http://www.google.com/finance/getprices?'
 	url = url + 'x={exchange}&q={ticker}&i={period}&p={days}d&f=d,o,h,l,c,v'.format(exchange=exchange, ticker=ticker, period=period, days=days)
 	rows = []
@@ -40,7 +41,6 @@ def get_google_finance_intraday(database, exchange, ticker, period=60, days=15):
 	for row in reader:
 		if re.match(r'[a|\d]',row[0]):
 			timer, close, high, low, open_, volume = row.split(',')
-			# rows.append([id_, close, high, low, open_, volume])
 			if timer[0].startswith('a'):
 				day = float(timer[1:])
 				timer = 0
@@ -48,9 +48,7 @@ def get_google_finance_intraday(database, exchange, ticker, period=60, days=15):
 				timer = float(timer)
 			open_, high, low, close = [float(x) for x in [open_, high, low, close]]
 			dt = datetime.datetime.fromtimestamp(day + (period * timer))
-			# print(dt)
 			rows.append([ticker, dt, close, high, low, open_, volume])
-	# sqlstr = 
 	conn.executemany("INSERT OR IGNORE INTO {} (ticker, dt, close, high, low, open, volume) VALUES (?,?,?,?,?,?,?)".format(database), rows)
 	conn.commit()
 # --------------------------------------------------- control center
