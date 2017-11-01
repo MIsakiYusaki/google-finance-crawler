@@ -9,7 +9,7 @@ Link:
 import time,datetime
 import requests
 import sqlite3
-conn = sqlite3.connect('daily.sqlite')
+conn = sqlite3.connect('ignore/daily.sqlite')
 import csv
 import tqdm
 from urllib.request import urlopen, Request, URLError
