@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-# PN: stock index crawler, Created Mar, 2017
-# Version 1.0
-# KW: crawler yahoo_finance
-# Link: https://www.jerrynest.com/python-twse-stock-list/
+'''
+Author: Jimmy Chen
+PN: stock list crawler, Created July. 2017
+Ver 1.1 (unfinish, need to test usage)
+Link: https://www.jerrynest.com/python-twse-stock-list/
+'''
 # --------------------------------------------------- lib import
 import re
 import requests

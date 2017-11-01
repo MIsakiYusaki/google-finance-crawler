@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-# Author: Jimmy Chen
-# PN: intraday stock price, Created July. 2017
-# Ver 1.1 (program finish, transfer google finance data into SQLite DB)
-# Link: 
+'''
+Author: Jimmy Chen
+PN: intraday stock price, Created July. 2017
+Ver 1.2 (modify code to crawl from list of company)
+Link: 
+'''
 # --------------------------------------------------- lib import
 import datetime
 import re
@@ -53,21 +55,25 @@ def get_google_finance_intraday(database, exchange, ticker, period=60, days=15):
 	conn.commit()
 # --------------------------------------------------- control center
 while True:
+    comp_name = ["AAPL", "AMZN", "MSFT", "GS", "GE", "IBM", "DIS", "INTC", "WMT", "JPM"]
 	disp_menu()
 	choice = int(input("Choose function: "))
 	print("-----------------------------------------")
 	if choice == 0:
 		break
 	# -- 1. Create table --
-	elif choice == 1:
-		try:
-			choice = str(input("Key-in Table name: "))
-			sqlstr = ('CREATE TABLE {} (ticker TEXT, dt DATETIME UNIQUE, close NUMERIC, high NUMERIC, low NUMERIC, open NUMERIC, volume NUMERIC)'.format(str(choice)))
-			conn.execute(sqlstr)
-			conn.commit()
-			print('-- Table created --')
-		except Exception as e:
-			print(str(e))
+    elif choice == 1:
+        try:
+            with open('firmlis-intra.csv', 'r') as in_file:
+                reader = csv.reader(in_file, delimiter=' ')
+                next(reader, None)
+                for row in reader:
+                    sqlstr = 'CREATE TABLE {} (id TEXT UNIQUE, ticker TEXT, dt DATETIME, open NUMERIC, high NUMERIC, low NUMERIC, close NUMERIC, volume NUMERIC)'.format(str(', '.join(row)))
+                    conn.execute(sqlstr)
+                    conn.commit()
+                    print('-- Table created --')
+        except Exception as e:
+            print(e)
 	# -- 2. Trans first phase --
 	elif choice == 2:
 		try:
