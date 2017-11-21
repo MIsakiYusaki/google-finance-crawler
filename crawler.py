@@ -53,7 +53,6 @@ def get_price(comp, start, end):
 
 if __name__ == '__main__':
     while True:
-        comp_name = ["AAPL", "AMZN", "MSFT", "GS", "GE", "IBM", "DIS", "INTC", "WMT", "JPM"]
         disp_menu()
         choice = int(input("Choose function: "))
         print("-----------------------------------------")
