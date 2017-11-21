@@ -1,6 +1,6 @@
 ### PN: Stock price crawler
 
-Crawl stock price via Google finance api.
+Crawl stock price via Google finance api, store with SQLite DB.
 
 ### Process steps
 
