@@ -30,7 +30,7 @@ def get_price(comp, start, end):
     '''
     Crawl daily price via google finance api
     Usage: get_price(<comp ticker>, <start day>, <end day>)
-    ps: TPE
+    Ex: get_price(AAPL 20170101 20170131)
     '''
     url = 'http://finance.google.com/finance/historical?q={0}'.format(comp)
     url += '&startdate={0}&enddate={1}&output=csv'.format(start, end)
