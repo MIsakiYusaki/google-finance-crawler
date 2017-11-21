@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
 '''
 Author: Jimmy Chen
-PN: stock price crawler (daily price via google), Created Sep. 2017
-Ver: 1.2.1 (TW stock need another way to crawl, google api might have number limited)
+PN: stock price crawler (crawl daily price via google), Created Sep. 2017
+Ver: 1.2 (final version)
 Link: 
 '''
 # --------------------------------------------------- libs import
-import time,datetime
+import time, datetime
 import requests
 import sqlite3
-conn = sqlite3.connect('ignore/daily.sqlite')
-# conn = sqlite3.connect('ignore/twstock.sqlite')
+conn = sqlite3.connect('daily.sqlite')
 import csv
 import tqdm
 from urllib.request import urlopen, Request, URLError
@@ -58,7 +57,6 @@ if __name__ == '__main__':
         disp_menu()
         choice = int(input("Choose function: "))
         print("-----------------------------------------")
-        # -- 0. Exit program --
         if choice == 0:
             break
         # -- 1. Create table --
@@ -74,14 +72,12 @@ if __name__ == '__main__':
                         print('-- Table created --')
                     except Exception as e:
                         print(e)
-        # -- 2-1. Import price --
+        # -- 2. Import price --
         elif choice == 2:
             try:
                 with open('firmlis.csv', 'r') as in_file:
                     reader = csv.reader(in_file, delimiter=' ')
                     next(reader, None)
-                    # # init vars
-                    # row_count = sum(1 for i in reader)
                     count = 1
                     start_day = "20010101"
                     now = str(datetime.datetime.now())
@@ -93,21 +89,6 @@ if __name__ == '__main__':
                     print('-- Finish crawl --')
             except Exception as e:
                 print(e)
-       # # -- 2-2. Import price (TW stock) --
-       #  elif choice == 2:
-       #      try:
-       #          count = 1
-       #          start_day = "20010101"
-       #          now = str(datetime.datetime.now())
-       #          end_day = now[0:4] + now[5:7] + now[8:10]
-       #          for i in range(2330, 2340):
-       #              print("TPE:{}".format(i))
-       #              get_price("TPE:{}".format(i), start_day, end_day)
-       #              print("===== Finish {}/{} =====".format(count, 8000))
-       #              count += 1
-       #              print('-- Finish crawl --')
-       #      except Exception as e:
-       #          print(e)
         # -- 3. Clear table (1) --
         elif choice == 3:
             try:
