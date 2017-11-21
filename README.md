@@ -1,6 +1,6 @@
 ## Stock price crawler
 
-Crawl stock price via Google finance api, store with SQLite DB.
+Crawl stock price via Google finance api, then store with SQLite DB.
 
 ### Process steps
 
