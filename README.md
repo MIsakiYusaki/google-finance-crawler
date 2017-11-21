@@ -2,7 +2,7 @@
 
 Crawl stock price via Google finance api, store with SQLite DB.
 
-### Process steps
+## Process steps
 
 ```
 1. Execute crawler.py
