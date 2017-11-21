@@ -29,11 +29,7 @@ Daily stock price crawler
 Choose function:
 ```
 
--
-
-Feel free to leave comments, make references or star!
-
--
+### Feel free to leave comments, make references or star!
 
 Jimmy Chen
 
