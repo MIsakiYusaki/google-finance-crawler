@@ -1,6 +1,6 @@
 ### Stock price crawler:
 
-Crawl stock price via Google finance api
+Crawl stock price via Google finance api.
 
 ### Process steps:
 

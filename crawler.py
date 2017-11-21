@@ -9,7 +9,7 @@ Link:
 import time, datetime
 import requests
 import sqlite3
-conn = sqlite3.connect('daily.sqlite')
+conn = sqlite3.connect('ignore/daily.sqlite')
 import csv
 import tqdm
 from urllib.request import urlopen, Request, URLError
@@ -61,7 +61,7 @@ if __name__ == '__main__':
             break
         # -- 1. Create table --
         elif choice == 1:
-            with open('firmlis.csv', 'r') as in_file:
+            with open('ignore/firmlis.csv', 'r') as in_file:
                 reader = csv.reader(in_file, delimiter=' ')
                 next(reader, None)
                 for row in reader:
@@ -75,11 +75,11 @@ if __name__ == '__main__':
         # -- 2. Import price --
         elif choice == 2:
             try:
-                with open('firmlis.csv', 'r') as in_file:
+                with open('ignore/firmlis.csv', 'r') as in_file:
                     reader = csv.reader(in_file, delimiter=' ')
                     next(reader, None)
                     count = 1
-                    start_day = "20010101"
+                    start_day = "20170101"
                     now = str(datetime.datetime.now())
                     end_day = now[0:4] + now[5:7] + now[8:10]
                     for row in reader:
@@ -105,7 +105,7 @@ if __name__ == '__main__':
         # -- 4. Clear table (all) --
         elif choice == 4:
             try:
-                with open('firmlis.csv', 'r') as in_file:
+                with open('ignore/firmlis.csv', 'r') as in_file:
                     reader = csv.reader(in_file, delimiter=' ')
                     next(reader, None)
                     confirm = str(input("Delete all tables? (Y/N) "))
