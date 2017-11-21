@@ -1,8 +1,8 @@
-### Stock price crawler:
+### PN: Stock price crawler
 
 Crawl stock price via Google finance api.
 
-### Process steps:
+### Process steps
 
 ```
 1. Execute crawler.py
